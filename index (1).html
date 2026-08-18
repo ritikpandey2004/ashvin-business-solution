@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ashvin Business Solution provides GST registration, GST return filing, income tax return filing, TDS compliance, accounting and business compliance services across India.">
+  <meta name="keywords" content="GST filing, GST registration, ITR filing, income tax, TDS, accounting, tax consultant India, Ashvin Business Solution">
+  <meta name="author" content="Ashvin Business Solution">
+  <meta property="og:title" content="Ashvin Business Solution | GST, Income Tax & Compliance">
+  <meta property="og:description" content="Practical GST, Income Tax, TDS and business compliance support for individuals and small businesses.">
+  <meta property="og:type" content="website">
+  <title>Ashvin Business Solution | GST, Income Tax & Compliance</title>
+
+  <style>
+    :root{
+      --navy:#071b33;
+      --navy2:#0b2948;
+      --gold:#d4af37;
+      --gold2:#f1d36a;
+      --cream:#f7f5ef;
+      --white:#fff;
+      --text:#172033;
+      --muted:#667085;
+      --line:#e6e9ef;
+      --green:#159957;
+      --shadow:0 18px 50px rgba(7,27,51,.10);
+      --radius:20px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,Arial,Helvetica,sans-serif;color:var(--text);background:#fff;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%}
+    .container{width:min(1160px,92%);margin:auto}
+    .topbar{background:var(--navy);color:#fff;font-size:13px;padding:8px 0}
+    .topbar .container{display:flex;justify-content:space-between;gap:20px}
+    header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy)}
+    .logo{width:44px;height:44px;border-radius:13px;background:var(--navy);color:var(--gold2);display:grid;place-items:center;font-size:19px;border:1px solid rgba(212,175,55,.5)}
+    .brand small{display:block;font-size:11px;letter-spacing:1.5px;color:var(--muted);font-weight:700}
+    .navlinks{display:flex;gap:25px;align-items:center;font-size:14px;font-weight:700}
+    .navlinks a:hover{color:#a67c00}
+    .nav-cta{background:var(--navy);color:#fff!important;padding:11px 17px;border-radius:11px}
+    .menu{display:none;border:0;background:none;font-size:28px;color:var(--navy)}
+    .hero{background:linear-gradient(135deg,#f8f6ef 0%,#fff 52%,#eef4f9 100%);padding:92px 0 70px;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;color:#896900;background:#fff8dc;border:1px solid #ead78b;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.4px}
+    h1{font-size:clamp(42px,5.4vw,68px);line-height:1.04;color:var(--navy);margin:18px 0}
+    h1 span{color:#a77d00}
+    .hero p{font-size:18px;color:var(--muted);max-width:650px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:13px 20px;border-radius:12px;font-weight:800;border:1px solid transparent;transition:.2s}
+    .btn-primary{background:var(--navy);color:#fff}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(7,27,51,.18)}
+    .btn-gold{background:var(--gold);color:var(--navy)}
+    .btn-outline{border-color:#cfd5df;background:#fff;color:var(--navy)}
+    .trust-row{display:flex;gap:25px;flex-wrap:wrap;margin-top:25px}
+    .trust-row strong{display:block;color:var(--navy);font-size:20px}
+    .trust-row span{font-size:12px;color:var(--muted)}
+    .hero-card{background:var(--navy);color:#fff;padding:28px;border-radius:26px;box-shadow:var(--shadow);position:relative}
+    .hero-card:after{content:"";position:absolute;right:-35px;top:-35px;width:120px;height:120px;border-radius:50%;border:20px solid rgba(212,175,55,.16)}
+    .hero-card h3{font-size:22px;margin-bottom:16px}
+    .status{display:flex;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+    .status:last-child{border-bottom:0}
+    .pill{font-size:11px;padding:5px 9px;border-radius:999px;background:rgba(21,153,87,.16);color:#72e6a9;font-weight:800}
+    section{padding:85px 0}
+    .section-head{max-width:700px;margin-bottom:40px}
+    .section-head .eyebrow{margin-bottom:12px}
+    h2{font-size:clamp(30px,4vw,44px);line-height:1.12;color:var(--navy);margin-bottom:12px}
+    .section-head p{color:var(--muted)}
+    .services{background:#fff}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);padding:24px;background:#fff;transition:.2s}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#ded2a5}
+    .icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#f8f2d9;color:#8b6900;font-weight:900;margin-bottom:16px}
+    .card h3{font-size:18px;color:var(--navy);margin-bottom:7px}
+    .card p{font-size:14px;color:var(--muted)}
+    .band{background:var(--navy);color:#fff}
+    .band h2,.band h3{color:#fff}
+    .band p{color:#bdc9d6}
+    .process{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .step{padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.045)}
+    .num{font-size:12px;color:var(--gold2);font-weight:900;letter-spacing:1px}
+    .step h3{margin:8px 0;font-size:16px}
+    .step p{font-size:13px}
+    .pricing{background:var(--cream)}
+    .price-card{display:flex;flex-direction:column}
+    .price{font-size:34px;font-weight:900;color:var(--navy);margin:8px 0}
+    .price small{font-size:13px;color:var(--muted);font-weight:600}
+    .features{list-style:none;margin:15px 0 25px;flex:1}
+    .features li{font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+    .features li:before{content:"✓";color:var(--green);font-weight:900;margin-right:9px}
+    .featured{border:2px solid var(--gold);position:relative}
+    .tag{position:absolute;top:15px;right:15px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:900;padding:5px 8px;border-radius:999px}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+    .founder{background:var(--navy);border-radius:26px;padding:35px;color:#fff}
+    .founder-badge{width:82px;height:82px;border-radius:22px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:28px;font-weight:900;margin-bottom:22px}
+    .founder p{color:#c8d1dc}
+    .checklist{list-style:none;margin-top:22px}
+    .checklist li{margin:12px 0;color:var(--muted)}
+    .checklist b{color:var(--navy)}
+    .security{background:#f5f8fb}
+    .security-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .security .card{text-align:center}
+    .calendar{background:#fff}
+    .tracker{border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+    .tracker-row{display:grid;grid-template-columns:1.3fr .8fr .8fr;padding:16px 20px;border-bottom:1px solid var(--line);font-size:14px}
+    .tracker-row:first-child{background:var(--navy);color:#fff;font-weight:800}
+    .tracker-row:last-child{border-bottom:0}
+    .badge{font-size:11px;font-weight:800;border-radius:999px;padding:5px 9px;display:inline-block;background:#eef8f2;color:#137b45}
+    .articles{background:var(--cream)}
+    .article p{font-size:13px}
+    .faq details{border-bottom:1px solid var(--line);padding:18px 0}
+    .faq summary{cursor:pointer;font-weight:800;color:var(--navy)}
+    .faq p{color:var(--muted);padding:12px 0 3px;font-size:14px}
+    .contact{background:var(--navy);color:#fff}
+    .contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:45px}
+    .contact h2{color:#fff}
+    .contact-copy p{color:#bdc9d6}
+    .contact-list{margin-top:25px;display:grid;gap:13px}
+    .contact-list div{padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:13px}
+    form{background:#fff;padding:25px;border-radius:22px;color:var(--text)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{font-size:12px;font-weight:800;color:var(--navy);display:block;margin-bottom:6px}
+    input,select,textarea{width:100%;padding:12px 13px;border:1px solid #d9dee7;border-radius:10px;font:inherit;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+    textarea{min-height:120px;resize:vertical}
+    .full{grid-column:1/-1}
+    footer{background:#041222;color:#aeb9c6;padding:28px 0}
+    footer .container{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px}
+    .disclaimer{font-size:11px;color:#778494;max-width:900px;margin-top:12px}
+    .float-wa{position:fixed;right:20px;bottom:20px;z-index:999;background:#18a85b;color:#fff;border-radius:999px;padding:13px 17px;font-weight:900;box-shadow:0 12px 28px rgba(0,0,0,.18)}
+    .notice{background:#fff8dc;border:1px solid #ead78b;padding:13px 16px;border-radius:12px;color:#6e5500;font-size:13px;margin-top:20px}
+    @media(max-width:900px){
+      .navlinks{display:none;position:absolute;left:0;right:0;top:76px;background:#fff;padding:20px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
+      .navlinks.open{display:flex}
+      .menu{display:block}
+      .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .process{grid-template-columns:1fr 1fr}
+      .security-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .topbar .container{justify-content:center;text-align:center}
+      .topbar .right{display:none}
+      nav{height:68px}
+      .navlinks{top:68px}
+      .hero{padding:65px 0 50px}
+      h1{font-size:43px}
+      .grid,.process,.security-grid,.form-grid{grid-template-columns:1fr}
+      .full{grid-column:auto}
+      section{padding:65px 0}
+      .tracker{font-size:12px}
+      .tracker-row{grid-template-columns:1.2fr .8fr .8fr;padding:13px 10px}
+      .float-wa{right:12px;bottom:12px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div>GST • Income Tax • TDS • Accounting • Business Compliance</div>
+      <div class="right">Pan-India Support</div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="container">
+      <a class="brand" href="#home">
+        <div class="logo">A</div>
+        <div>Ashvin Business Solution<small>YOUR TAX • COMPLIANCE PARTNER</small></div>
+      </a>
+      <button class="menu" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+      <div class="navlinks" id="navlinks">
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#process" onclick="closeMenu()">Process</a>
+        <a href="#pricing" onclick="closeMenu()">Pricing</a>
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#faq" onclick="closeMenu()">FAQ</a>
+        <a class="nav-cta" href="#contact" onclick="closeMenu()">Free Consultation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">● Practical compliance support for India</div>
+          <h1>GST & Income Tax, <span>handled with clarity.</span></h1>
+          <p>Reliable support for GST registration, return filing, ITR, TDS, accounting and business compliance — with a simple process and personal attention.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Book Free Consultation</a>
+            <a class="btn btn-gold" target="_blank" href="https://wa.me/916306897688?text=Hello%20Ashvin%20Business%20Solution%2C%20I%20need%20help%20with%20tax%20or%20GST%20compliance.">Chat on WhatsApp</a>
+          </div>
+          <div class="trust-row">
+            <div><strong>Pan-India</strong><span>Remote support</span></div>
+            <div><strong>Personal</strong><span>Client attention</span></div>
+            <div><strong>Transparent</strong><span>Clear pricing</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3>Compliance Tracker</h3>
+          <div class="status"><span>GST Returns</span><span class="pill">Tracked</span></div>
+          <div class="status"><span>Income Tax Return</span><span class="pill">Reviewed</span></div>
+          <div class="status"><span>TDS Compliance</span><span class="pill">Monitored</span></div>
+          <div class="status"><span>Business Compliance</span><span class="pill">Supported</span></div>
+          <div class="notice">Illustrative tracker. Actual due dates and applicability depend on taxpayer category and current law.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">What we help with</div>
+          <h2>Tax & compliance services for individuals and businesses.</h2>
+          <p>Choose the service you need. If you're unsure, contact us and we'll help identify the appropriate compliance requirement.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><div class="icon">GST</div><h3>GST Registration</h3><p>Registration support, document review and application assistance.</p></article>
+          <article class="card"><div class="icon">G1</div><h3>GST Return Filing</h3><p>GSTR-1, GSTR-3B and applicable return compliance with reconciliation-focused review.</p></article>
+          <article class="card"><div class="icon">!</div><h3>GST Notices</h3><p>Initial review, document organization and practical response support.</p></article>
+          <article class="card"><div class="icon">IT</div><h3>Income Tax Return</h3><p>ITR filing support for salaried individuals, professionals and eligible taxpayers.</p></article>
+          <article class="card"><div class="icon">TX</div><h3>Income Tax Notices</h3><p>Notice review, document checklist and response coordination.</p></article>
+          <article class="card"><div class="icon">TDS</div><h3>TDS / TCS Compliance</h3><p>Return preparation, basic compliance support and filing assistance.</p></article>
+          <article class="card"><div class="icon">AT</div><h3>Advance Tax</h3><p>Support in estimating tax liability and planning applicable advance-tax payments.</p></article>
+          <article class="card"><div class="icon">BR</div><h3>Business Registration</h3><p>Support for suitable business structures and documentation coordination.</p></article>
+          <article class="card"><div class="icon">ROC</div><h3>ROC Compliance</h3><p>Compliance support for eligible companies and LLPs, subject to scope.</p></article>
+          <article class="card"><div class="icon">DOC</div><h3>PAN / TAN / DSC</h3><p>Application and documentation assistance for relevant registrations.</p></article>
+          <article class="card"><div class="icon">₹</div><h3>Accounting & Bookkeeping</h3><p>Organized books, transaction records and basic reporting support.</p></article>
+          <article class="card"><div class="icon">CG</div><h3>Capital Gains & NRI Tax</h3><p>Initial tax-compliance support for capital gains and NRI-related matters.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="band">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Simple workflow</div>
+          <h2>From first call to filing confirmation.</h2>
+          <p>No confusing process. You know what is needed and what happens next.</p>
+        </div>
+        <div class="process">
+          <div class="step"><div class="num">01</div><h3>Consultation</h3><p>Understand your requirement and applicable service.</p></div>
+          <div class="step"><div class="num">02</div><h3>Documents</h3><p>Share only the documents required for your case.</p></div>
+          <div class="step"><div class="num">03</div><h3>Preparation</h3><p>Data is organized and the return/compliance work is prepared.</p></div>
+          <div class="step"><div class="num">04</div><h3>Client Review</h3><p>Important details are reviewed and confirmed before filing.</p></div>
+          <div class="step"><div class="num">05</div><h3>Filing & Proof</h3><p>Filing confirmation/acknowledgment is shared where applicable.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Transparent pricing</div>
+          <h2>Simple plans. Clear scope.</h2>
+          <p>Prices shown are starting prices. Final fees can vary based on complexity, records, transaction volume and applicable requirements.</p>
+        </div>
+        <div class="grid">
+          <article class="card price-card">
+            <h3>Basic ITR</h3><div class="price">₹599 <small>starting</small></div>
+            <ul class="features"><li>Basic eligible ITR support</li><li>Document checklist</li><li>Return preparation</li><li>Filing confirmation</li></ul>
+            <a class="btn btn-outline" href="#contact">Enquire Now</a>
+          </article>
+          <article class="card price-card featured">
+            <span class="tag">POPULAR</span>
+            <h3>GST Monthly Filing</h3><div class="price">₹1,299 <small>/ month starting</small></div>
+            <ul class="features"><li>Applicable GST return support</li><li>Data/document review</li><li>Basic reconciliation checks</li><li>Filing confirmation</li></ul>
+            <a class="btn btn-primary" href="#contact">Get Started</a>
+          </article>
+          <article class="card price-card">
+            <h3>Business Compliance</h3><div class="price">₹3,499 <small>/ month starting</small></div>
+            <ul class="features"><li>GST compliance support</li><li>TDS/basic compliance support</li><li>Accounting coordination</li><li>Compliance tracking</li></ul>
+            <a class="btn btn-outline" href="#contact">Discuss Requirement</a>
+          </article>
+        </div>
+        <div class="notice">Registration, audit, complex advisory, litigation/representation and specialized assignments may be quoted separately after understanding the scope.</div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="founder">
+          <div class="founder-badge">RP</div>
+          <h2>Built around practical client support.</h2>
+          <p>Ashvin Business Solution is designed to make tax and compliance work easier to understand, organize and track for individuals and small businesses.</p>
+          <div class="actions"><a class="btn btn-gold" href="#contact">Talk to Us</a></div>
+        </div>
+        <div>
+          <div class="eyebrow">About Ashvin</div>
+          <h2>A professional-first approach without unnecessary complexity.</h2>
+          <p style="color:var(--muted)">The goal is simple: understand the client's requirement, collect the right information, prepare carefully, communicate clearly and maintain a proper compliance trail.</p>
+          <ul class="checklist">
+            <li>✓ <b>Clear communication</b> — explain what is required and why.</li>
+            <li>✓ <b>Structured workflow</b> — documents, preparation, review and filing.</li>
+            <li>✓ <b>Transparent pricing</b> — starting prices with scope clarified before work.</li>
+            <li>✓ <b>Client approval</b> — important filing details confirmed before submission.</li>
+            <li>✓ <b>Current-law awareness</b> — compliance dates and rules should always be checked against applicable current provisions.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="security">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Client-first handling</div>
+          <h2>Your documents deserve disciplined handling.</h2>
+          <p>Tax documents can contain sensitive financial information. Share documents only through channels you trust and avoid sending unnecessary personal information.</p>
+        </div>
+        <div class="security-grid">
+          <div class="card"><div class="icon">01</div><h3>Minimum Data</h3><p>Request only documents relevant to the assignment.</p></div>
+          <div class="card"><div class="icon">02</div><h3>Organized Review</h3><p>Keep documents and filing information structured.</p></div>
+          <div class="card"><div class="icon">03</div><h3>Client Confirmation</h3><p>Confirm material information before submission.</p></div>
+          <div class="card"><div class="icon">04</div><h3>Filing Proof</h3><p>Share applicable acknowledgment or confirmation after filing.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="calendar">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Compliance view</div>
+          <h2>Know what is being handled.</h2>
+          <p>This is an illustrative dashboard—not a live government filing account.</p>
+        </div>
+        <div class="tracker">
+          <div class="tracker-row"><span>Compliance Area</span><span>Status</span><span>Action</span></div>
+          <div class="tracker-row"><span>GST Return</span><span><span class="badge">Tracked</span></span><span>Prepare / Review</span></div>
+          <div class="tracker-row"><span>Income Tax Return</span><span><span class="badge">Tracked</span></span><span>Prepare / File</span></div>
+          <div class="tracker-row"><span>TDS Return</span><span><span class="badge">Tracked</span></span><span>Check applicability</span></div>
+          <div class="tracker-row"><span>Business Compliance</span><span><span class="badge">Tracked</span></span><span>Review requirements</span></div>
+        </div>
+        <div class="notice">Due dates vary by return, taxpayer type, financial year and government notifications. Always verify the applicable current due date before relying on a compliance calendar.</div>
+      </div>
+    </section>
+
+    <section id="articles" class="articles">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Tax knowledge</div>
+          <h2>Useful guides for business owners and taxpayers.</h2>
+          <p>Educational content should help clients understand their compliance before they make decisions.</p>
+        </div>
+        <div class="grid">
+          <article class="card article"><h3>GSTR-1 vs GSTR-3B</h3><p>Understand the basic purpose of these returns and why reconciliation matters.</p></article>
+          <article class="card article"><h3>GST Notice Received?</h3><p>A practical first-step checklist: read, identify the issue, collect documents and respond within the applicable timeline.</p></article>
+          <article class="card article"><h3>ITR Filing Basics</h3><p>Understand why income sources, Form 16, AIS/TIS and other records matter during return preparation.</p></article>
+          <article class="card article"><h3>GST Registration Documents</h3><p>A simple overview of common documents and information generally required for registration.</p></article>
+          <article class="card article"><h3>TDS Compliance Basics</h3><p>Learn the basic workflow from deduction and deposit to return filing and certificates.</p></article>
+          <article class="card article"><h3>Small Business Tax Checklist</h3><p>Keep GST, income tax, TDS, accounting records and business compliance organized throughout the year.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Frequently asked</div>
+          <h2>Questions clients usually have.</h2>
+        </div>
+        <details><summary>Do you provide services across India?</summary><p>Yes. The website is designed for remote, Pan-India support. The exact service scope depends on the client's requirement.</p></details>
+        <details><summary>Is ₹599 the final price for every ITR?</summary><p>No. ₹599 is a starting price for basic eligible cases. Complex returns, business income, capital gains, foreign income and other situations may require a different fee.</p></details>
+        <details><summary>Can I send my documents on WhatsApp?</summary><p>You can use the contact options provided, but avoid sending unnecessary sensitive information. For important financial documents, use a controlled document-sharing process whenever available.</p></details>
+        <details><summary>Will my return be filed without my confirmation?</summary><p>The intended workflow includes review and confirmation of material details before filing, subject to the nature of the assignment.</p></details>
+        <details><summary>Are the tax due dates shown on this website official?</summary><p>No. Any dates shown on an illustrative page should not be treated as official. Applicable dates should be verified against current government notifications and the taxpayer's category.</p></details>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <div class="eyebrow">Start a conversation</div>
+          <h2>Tell us what you need help with.</h2>
+          <p>Share a few details and we'll understand your requirement before discussing the next step.</p>
+          <div class="contact-list">
+            <div>📱 <strong>WhatsApp</strong><br>+91 63068 97688</div>
+            <div>📍 <strong>Service Area</strong><br>Pan-India / Remote Support</div>
+            <div>⏱️ <strong>Response</strong><br>Business enquiries are handled during working hours.</div>
+          </div>
+        </div>
+
+        <form id="leadForm" onsubmit="submitForm(event)">
+          <div class="form-grid">
+            <div><label for="name">Full Name</label><input id="name" required placeholder="Your name"></div>
+            <div><label for="phone">Phone / WhatsApp</label><input id="phone" required placeholder="10-digit number"></div>
+            <div><label for="email">Email</label><input id="email" type="email" placeholder="you@example.com"></div>
+            <div><label for="type">Client Type</label><select id="type"><option>Individual</option><option>Freelancer / Professional</option><option>Proprietor</option><option>Partnership</option><option>LLP</option><option>Company</option><option>Other</option></select></div>
+            <div class="full"><label for="service">Service Required</label><select id="service"><option>ITR Filing</option><option>GST Registration</option><option>GST Return Filing</option><option>GST Notice</option><option>TDS / TCS</option><option>Accounting</option><option>Business Registration</option><option>ROC Compliance</option><option>Other</option></select></div>
+            <div class="full"><label for="message">Requirement</label><textarea id="message" placeholder="Briefly describe your requirement..."></textarea></div>
+            <div class="full"><button class="btn btn-primary" style="width:100%;cursor:pointer" type="submit">Send Enquiry on WhatsApp</button></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div><strong style="color:#fff">ASHVIN BUSINESS SOLUTION</strong><br>Aapka Kar, Hamari Zimmedari.</div>
+      <div>GST • Income Tax • TDS • Accounting • Compliance</div>
+      <div class="disclaimer">Disclaimer: Ashvin Business Solution is a service brand. Information on this website is for general educational and service-information purposes and is not a substitute for professional legal or tax advice. Tax laws, rules, forms and due dates can change. Applicability should be checked for the specific taxpayer and current provisions.</div>
+    </div>
+  </footer>
+
+  <a class="float-wa" target="_blank" href="https://wa.me/916306897688?text=Hello%20Ashvin%20Business%20Solution%2C%20I%20want%20to%20discuss%20a%20tax%20or%20GST%20requirement.">WhatsApp</a>
+
+  <script>
+    function toggleMenu(){
+      document.getElementById('navlinks').classList.toggle('open');
+    }
+    function closeMenu(){
+      document.getElementById('navlinks').classList.remove('open');
+    }
+    function submitForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const type = document.getElementById('type').value;
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
+
+      const text =
+        "Hello Ashvin Business Solution,%0A%0A" +
+        "Name: " + encodeURIComponent(name) + "%0A" +
+        "Phone: " + encodeURIComponent(phone) + "%0A" +
+        "Email: " + encodeURIComponent(email || "Not provided") + "%0A" +
+        "Client Type: " + encodeURIComponent(type) + "%0A" +
+        "Service: " + encodeURIComponent(service) + "%0A" +
+        "Requirement: " + encodeURIComponent(message || "Not specified");
+
+      window.open("https://wa.me/916306897688?text=" + text, "_blank");
+    }
+  </script>
+</body>
+</html>
