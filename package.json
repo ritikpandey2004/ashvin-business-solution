@@ -1,0 +1,16 @@
+{
+  "name": "ashvin-intake-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Client intake backend for Ashvin Business Solution's AI call agent (Vapi + Claude). Collects problem details and turns them into a report.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

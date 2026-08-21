@@ -1,0 +1,44 @@
+{
+  "type": "function",
+  "function": {
+    "name": "submit_client_report",
+    "description": "Call this once you have gathered the caller's name, phone number, and a clear description of the tax/GST problem they need help with. This saves a report for the team to review and prepare a solution — it does not book an appointment or promise a resolution.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Caller's full name."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Caller's phone number."
+        },
+        "email": {
+          "type": "string",
+          "description": "Caller's email address, if given."
+        },
+        "service_category": {
+          "type": "string",
+          "description": "Best-fit category, e.g. GST Registration, GST Return Filing, GST Notice, Income Tax Return, Income Tax Notice, TDS/TCS, Business Registration, ROC Compliance, Accounting, Not sure."
+        },
+        "problem_summary": {
+          "type": "string",
+          "description": "A clear, specific summary of what the client needs help with, in their own words as much as possible — include any numbers, dates, or notices they mentioned."
+        },
+        "urgency": {
+          "type": "string",
+          "description": "Any deadline or urgency the caller mentioned, e.g. 'GST notice due in 5 days', 'No immediate deadline'."
+        },
+        "source": {
+          "type": "string",
+          "description": "How this conversation happened: 'phone' or 'website'."
+        }
+      },
+      "required": ["name", "phone", "problem_summary"]
+    }
+  },
+  "server": {
+    "url": "https://YOUR-BACKEND-URL/vapi/webhook"
+  }
+}
