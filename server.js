@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const Database = require('better-sqlite3');
+const fs = require('fs');
 
 const app = express();
 app.use(express.json());
@@ -17,44 +17,32 @@ app.use((req, res, next) => {
 });
 
 // ---------------------------------------------------------------
-// Database setup
+// Tiny JSON-file "database" — no native dependencies, so it runs
+// anywhere (Render, Railway, etc.) without native-module build
+// issues. Fine for a small business's volume of data.
 // ---------------------------------------------------------------
-const db = new Database(path.join(__dirname, 'reports.db'));
-db.exec(`
-  CREATE TABLE IF NOT EXISTS reports (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT,
-    service_category TEXT,
-    problem_summary TEXT NOT NULL,
-    urgency TEXT,
-    source TEXT,              -- 'phone' or 'website'
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+const DATA_DIR = path.join(__dirname, 'data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS articles (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    excerpt TEXT NOT NULL,
-    body TEXT NOT NULL,
-    published_date TEXT NOT NULL,   -- YYYY-MM-DD, shown on the site
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+function loadTable(name) {
+  const file = path.join(DATA_DIR, name + '.json');
+  if (!fs.existsSync(file)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (err) {
+    console.error(`Failed to read ${name}.json:`, err.message);
+    return [];
+  }
+}
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS visits (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ip TEXT,
-    page TEXT,
-    referrer TEXT,
-    user_agent TEXT,
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-  )
-`);
+function saveTable(name, rows) {
+  const file = path.join(DATA_DIR, name + '.json');
+  fs.writeFileSync(file, JSON.stringify(rows, null, 2));
+}
+
+function nextId(rows) {
+  return rows.length ? Math.max(...rows.map((r) => r.id)) + 1 : 1;
+}
 
 // ---------------------------------------------------------------
 // Tool implementation: submit_client_report
@@ -70,18 +58,19 @@ function submitClientReport(args) {
     };
   }
 
-  db.prepare(
-    `INSERT INTO reports (name, phone, email, service_category, problem_summary, urgency, source)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`
-  ).run(
+  const reports = loadTable('reports');
+  reports.push({
+    id: nextId(reports),
     name,
     phone,
-    email || null,
-    service_category || 'Not specified',
+    email: email || null,
+    service_category: service_category || 'Not specified',
     problem_summary,
-    urgency || 'Not specified',
-    source || 'unknown'
-  );
+    urgency: urgency || 'Not specified',
+    source: source || 'unknown',
+    created_at: new Date().toISOString(),
+  });
+  saveTable('reports', reports);
 
   // Fire-and-forget email notification so you see new reports immediately.
   // Uses the same FormSubmit.co endpoint your website contact form already uses.
@@ -148,8 +137,8 @@ app.get('/admin/reports', (req, res) => {
   if (!process.env.ADMIN_KEY || req.query.key !== process.env.ADMIN_KEY) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  const rows = db.prepare('SELECT * FROM reports ORDER BY created_at DESC').all();
-  res.json(rows);
+  const reports = loadTable('reports').sort((a, b) => b.created_at.localeCompare(a.created_at));
+  res.json(reports);
 });
 
 // ---------------------------------------------------------------
@@ -159,15 +148,16 @@ app.get('/admin/reports', (req, res) => {
 
 // PUBLIC — the website fetches this on page load to render article cards.
 app.get('/articles', (req, res) => {
-  const rows = db
-    .prepare('SELECT id, title, excerpt, published_date FROM articles ORDER BY published_date DESC, id DESC')
-    .all();
-  res.json(rows);
+  const articles = loadTable('articles')
+    .map(({ id, title, excerpt, published_date }) => ({ id, title, excerpt, published_date }))
+    .sort((a, b) => b.published_date.localeCompare(a.published_date) || b.id - a.id);
+  res.json(articles);
 });
 
 // PUBLIC — full text of one article (for a future article detail page).
 app.get('/articles/:id', (req, res) => {
-  const row = db.prepare('SELECT * FROM articles WHERE id = ?').get(req.params.id);
+  const articles = loadTable('articles');
+  const row = articles.find((a) => String(a.id) === req.params.id);
   if (!row) return res.status(404).json({ error: 'Not found' });
   res.json(row);
 });
@@ -182,12 +172,18 @@ app.post('/admin/articles', (req, res) => {
     return res.status(400).json({ error: 'title, excerpt, and body are all required.' });
   }
 
-  const date = published_date || new Date().toISOString().slice(0, 10);
-  const result = db
-    .prepare('INSERT INTO articles (title, excerpt, body, published_date) VALUES (?, ?, ?, ?)')
-    .run(title, excerpt, body, date);
+  const articles = loadTable('articles');
+  const id = nextId(articles);
+  articles.push({
+    id,
+    title,
+    excerpt,
+    body,
+    published_date: published_date || new Date().toISOString().slice(0, 10),
+  });
+  saveTable('articles', articles);
 
-  res.json({ confirmed: true, id: result.lastInsertRowid });
+  res.json({ confirmed: true, id });
 });
 
 // ADMIN — delete an article, in case you want to take one down.
@@ -198,7 +194,8 @@ app.post('/admin/articles/delete', (req, res) => {
   }
   if (!id) return res.status(400).json({ error: 'id is required.' });
 
-  db.prepare('DELETE FROM articles WHERE id = ?').run(id);
+  const articles = loadTable('articles').filter((a) => String(a.id) !== String(id));
+  saveTable('articles', articles);
   res.json({ confirmed: true });
 });
 
@@ -212,9 +209,16 @@ app.post('/track-visit', (req, res) => {
   const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
   const userAgent = req.headers['user-agent'] || '';
 
-  db.prepare(
-    'INSERT INTO visits (ip, page, referrer, user_agent) VALUES (?, ?, ?, ?)'
-  ).run(ip, page || '/', referrer || '', userAgent);
+  const visits = loadTable('visits');
+  visits.push({
+    id: nextId(visits),
+    ip,
+    page: page || '/',
+    referrer: referrer || '',
+    user_agent: userAgent,
+    created_at: new Date().toISOString(),
+  });
+  saveTable('visits', visits);
 
   res.status(200).json({ ok: true });
 });
@@ -224,12 +228,11 @@ app.get('/admin/visits/summary', (req, res) => {
   if (!process.env.ADMIN_KEY || req.query.key !== process.env.ADMIN_KEY) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  const totalVisits = db.prepare('SELECT COUNT(*) AS n FROM visits').get().n;
-  const uniqueVisitors = db.prepare('SELECT COUNT(DISTINCT ip) AS n FROM visits').get().n;
+  const visits = loadTable('visits');
+  const totalVisits = visits.length;
+  const uniqueVisitors = new Set(visits.map((v) => v.ip)).size;
   const today = new Date().toISOString().slice(0, 10);
-  const visitsToday = db
-    .prepare("SELECT COUNT(*) AS n FROM visits WHERE date(created_at) = date(?)")
-    .get(today).n;
+  const visitsToday = visits.filter((v) => v.created_at.slice(0, 10) === today).length;
 
   res.json({ totalVisits, uniqueVisitors, visitsToday });
 });
@@ -239,10 +242,10 @@ app.get('/admin/visits', (req, res) => {
   if (!process.env.ADMIN_KEY || req.query.key !== process.env.ADMIN_KEY) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  const rows = db
-    .prepare('SELECT * FROM visits ORDER BY created_at DESC LIMIT 500')
-    .all();
-  res.json(rows);
+  const visits = loadTable('visits')
+    .sort((a, b) => b.created_at.localeCompare(a.created_at))
+    .slice(0, 500);
+  res.json(visits);
 });
 
 app.get('/', (req, res) => {
