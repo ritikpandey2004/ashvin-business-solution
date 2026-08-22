@@ -1,7 +1,18 @@
+console.log('Server script starting...');
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:', err);
+  process.exit(1);
+});
+process.on('unhandledRejection', (err) => {
+  console.error('UNHANDLED REJECTION:', err);
+  process.exit(1);
+});
+
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+console.log('Modules loaded OK.');
 
 const app = express();
 app.use(express.json());
