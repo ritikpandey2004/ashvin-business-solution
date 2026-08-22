@@ -95,4 +95,123 @@
     <div style="font-size:22px;font-weight:700;color:#0B2545;" id="statUnique">–</div>
     <div style="font-size:12px;color:#5B5F66;">Unique visitors</div>
   </div>
-  <div style="flex:1;background:#fff;border:1px solid #E4DFD1;border-radius:6px;pa
+  <div style="flex:1;background:#fff;border:1px solid #E4DFD1;border-radius:6px;padding:14px;text-align:center;">
+    <div style="font-size:22px;font-weight:700;color:#0B2545;" id="statToday">–</div>
+    <div style="font-size:12px;color:#5B5F66;">Today</div>
+  </div>
+</div>
+<p class="sub">Publishes straight to the "From the desk" section on your website.</p>
+
+<label for="adminKey">Admin key</label>
+<input type="password" id="adminKey" placeholder="Your ADMIN_KEY">
+
+<label for="title">Title</label>
+<input type="text" id="title" placeholder="e.g. GSTR-3B for June 2026 — Deadline & Checklist">
+
+<label for="excerpt">Short excerpt (1–2 lines, shown on the card)</label>
+<textarea id="excerpt" placeholder="A short teaser shown on the article card..."></textarea>
+
+<label for="body">Full article</label>
+<textarea id="body" placeholder="Write the full article here..."></textarea>
+
+<button onclick="publish()">Publish Article</button>
+<div id="status"></div>
+
+<div id="list">
+  <label style="margin:0 0 12px;">Published articles</label>
+  <div id="articleList"></div>
+</div>
+
+<script>
+  // Set this to your deployed backend URL, e.g. https://your-app.onrender.com
+  const API_BASE = "https://ashvin-business-solution.onrender.com";
+
+  async function publish() {
+    const key = document.getElementById('adminKey').value;
+    const title = document.getElementById('title').value.trim();
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const body = document.getElementById('body').value.trim();
+    const statusEl = document.getElementById('status');
+
+    if (!key || !title || !excerpt || !body) {
+      statusEl.className = 'err';
+      statusEl.textContent = 'Please fill in the admin key, title, excerpt, and article body.';
+      return;
+    }
+
+    try {
+      const res = await fetch(API_BASE + '/admin/articles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key, title, excerpt, body })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.confirmed) {
+        statusEl.className = 'ok';
+        statusEl.textContent = 'Published! It will now show on your website.';
+        document.getElementById('title').value = '';
+        document.getElementById('excerpt').value = '';
+        document.getElementById('body').value = '';
+        loadArticles();
+      } else {
+        statusEl.className = 'err';
+        statusEl.textContent = data.error || 'Something went wrong.';
+      }
+    } catch (err) {
+      statusEl.className = 'err';
+      statusEl.textContent = 'Could not reach the backend. Check API_BASE at the top of this page.';
+    }
+  }
+
+  async function deleteArticle(id) {
+    const key = document.getElementById('adminKey').value;
+    if (!key) { alert('Enter your admin key first.'); return; }
+    if (!confirm('Delete this article?')) return;
+
+    await fetch(API_BASE + '/admin/articles/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key, id })
+    });
+    loadArticles();
+  }
+
+  async function loadArticles() {
+    const listEl = document.getElementById('articleList');
+    try {
+      const res = await fetch(API_BASE + '/articles');
+      const articles = await res.json();
+      if (!articles.length) {
+        listEl.innerHTML = '<p style="color:#5B5F66;font-size:13px;">No articles published yet.</p>';
+        return;
+      }
+      listEl.innerHTML = articles.map(a =>
+        '<div class="article-row"><span>' + a.published_date + ' — ' + a.title +
+        '</span><button onclick="deleteArticle(' + a.id + ')">Delete</button></div>'
+      ).join('');
+    } catch (err) {
+      listEl.innerHTML = '<p style="color:#a33;font-size:13px;">Could not load articles.</p>';
+    }
+  }
+
+  loadArticles();
+
+  async function loadVisitStats() {
+    const key = document.getElementById('adminKey').value;
+    if (!key) return;
+    try {
+      const res = await fetch(API_BASE + '/admin/visits/summary?key=' + encodeURIComponent(key));
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('statTotal').textContent = data.totalVisits;
+        document.getElementById('statUnique').textContent = data.uniqueVisitors;
+        document.getElementById('statToday').textContent = data.visitsToday;
+      }
+    } catch (err) { /* backend not reachable yet */ }
+  }
+  document.getElementById('adminKey').addEventListener('change', loadVisitStats);
+</script>
+
+</body>
+</html>
